@@ -1,17 +1,16 @@
 /*Sources
 https://www.geeksforgeeks.org/multithreading-in-cpp/ //Threading
 https://stackoverflow.com/questions/76398544/why-is-ref-cref-needed-for-reference-arguments-to-a-function-passed-to-stdth //Passing by reference with threads
-https://www.geeksforgeeks.org/sorting-a-vector-in-c/# //Easy was to sort to check for correctness
+https://www.geeksforgeeks.org/sorting-a-vector-in-c/# //Easy way to sort to check for correctness
 */
 
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN //To set up the testing framework
+#include "doctest.h" //Same comment as above
 
 #include <iostream>
 #include <vector>
 #include <thread>
 #include <algorithm>
-
-#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN //To set up the testing framework
-#include "doctest.h" //Same comment as above
 
 using namespace std;
 
@@ -23,8 +22,7 @@ void merge(vector<int>& array, int left, int mid, int right)
     vector<int> rightArray(array.begin() + mid + 1, array.begin() + right + 1);
 
     //Makes indexes for leftSubarray, rightSubarray and merged array
-    int leftIndex = 0, rightIndex = 0;
-    int mergedIndex = left;
+    int leftIndex = 0, rightIndex = 0, mergedIndex = left;
 
     //Merge the two temp arrays into original. I decided to use while loops for this as using for loops got a little tricky with passing around the indexes but it doesnt really matter
     while (leftIndex < leftArray.size() && rightIndex < rightArray.size()) { //Bounds check
@@ -39,7 +37,7 @@ void merge(vector<int>& array, int left, int mid, int right)
         mergedIndex++;
     }
 
-    //We also need these two loops to add the remaning data that wasnt swapped around
+    //We also need these two loops to add the remaining data that wasn't swapped around
     while (leftIndex < leftArray.size()) {
         array[mergedIndex] = leftArray[leftIndex];
         leftIndex++;
