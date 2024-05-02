@@ -62,7 +62,7 @@ void parallel_merge_sort(vector<int>& array, int leftIndex, int rightIndex, int 
     if (depth < 2) { //We only want to add another thread when it makes sense to (I set the depth to 2 as from my testing that seemed to run the fastest on my laptop with the g++ 13.2.0 compiler)
         thread leftThread(parallel_merge_sort, ref(array), leftIndex, middleIndex, depth + 1); //Create our leftThread and call. Use ref() to make a reference as to not copy the array around
         thread rightThread(parallel_merge_sort, ref(array), middleIndex + 1, rightIndex, depth + 1); //Create our rightThread and call
-        leftThread.join();
+        leftThread.join(); //Join the threads back up when done
         rightThread.join();
     }
     else { //When we get to a certain depth we dont want to add more threads as it doesnt really get us anything
@@ -77,15 +77,15 @@ void parallel_merge_sort(vector<int>& array, int leftIndex, int rightIndex, int 
 //Testing
 TEST_CASE("Testing merge sort with 10,000 randomized arrays with a length of length 1,000") {
     for (int i = 0; i < 10000; i++) { //Total of 10,000 tests
-        vector<int> tempV1;
+        vector<int> tempV1; //Make two temporary vectors
         vector<int> tempV2;
-        for (int j = 0; j < 1000; j++) {
+        for (int j = 0; j < 1000; j++) { /Add all of the randomized values to them
             int temp = rand() % 10000000;
             tempV1.push_back(temp);
             tempV2.push_back(temp);
         }
-        parallel_merge_sort(tempV1, 0, tempV1.size() - 1);
-        sort(tempV2.begin(), tempV2.end());
-        CHECK(tempV1 == tempV2);
+        parallel_merge_sort(tempV1, 0, tempV1.size() - 1); //Call the parallel mergesort
+        sort(tempV2.begin(), tempV2.end()); //Call the built in sort to check for correctness
+        CHECK(tempV1 == tempV2); //Check it
     }
 }
