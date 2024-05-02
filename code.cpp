@@ -79,7 +79,7 @@ TEST_CASE("Testing merge sort with 10,000 randomized arrays with a length of len
     for (int i = 0; i < 10000; i++) { //Total of 10,000 tests
         vector<int> tempV1; //Make two temporary vectors
         vector<int> tempV2;
-        for (int j = 0; j < 1000; j++) { /Add all of the randomized values to them
+        for (int j = 0; j < 1000; j++) { //Add all of the randomized values to them
             int temp = rand() % 10000000;
             tempV1.push_back(temp);
             tempV2.push_back(temp);
