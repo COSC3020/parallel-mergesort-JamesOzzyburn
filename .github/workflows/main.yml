@@ -1,0 +1,12 @@
+on:
+  push:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - run: g++ -o main code.cpp
+    - run: ./main
+    - run: g++ -o mainOP code.cpp -O3
+    - run: ./mainOP
